@@ -15,6 +15,9 @@ class BitcoinApi implements AbstractBitcoinApi {
   }
 
   static convertBlock(block: IBitcoinApi.Block): IEsploraApi.Block {
+    // Dogecoin: Add nTX helper
+    let tx_count = block.nTx ?? block.tx.length;
+
     return {
       id: block.hash,
       height: block.height,
@@ -24,7 +27,7 @@ class BitcoinApi implements AbstractBitcoinApi {
       nonce: block.nonce,
       difficulty: block.difficulty,
       merkle_root: block.merkleroot,
-      tx_count: block.nTx,
+      tx_count: tx_count,
       size: block.size,
       weight: block.weight,
       previousblockhash: block.previousblockhash,
@@ -47,6 +50,9 @@ class BitcoinApi implements AbstractBitcoinApi {
           transaction.vout.forEach((vout) => {
             vout.value = Math.round(vout.value * 100000000);
           });
+          // Dogecoin: Add TX weight and vsize by converting size
+          transaction.size = transaction.vsize;
+          transaction.weight = transaction.vsize * 4;
           return transaction;
         }
         return this.$convertTransaction(transaction, addPrevout, lazyPrevouts);
@@ -264,7 +270,9 @@ class BitcoinApi implements AbstractBitcoinApi {
     } else {
       mempoolEntry = await this.$getMempoolEntry(transaction.txid);
     }
-    transaction.fee = Math.round(mempoolEntry.fees.base * 100000000);
+    // Dogecoin: <= 1.14.6 does not support base fee in getmempoolentry, resort to fee instead.
+    transaction.fee = Math.round(mempoolEntry.fee * 100000000);
+    // transaction.fee = Math.round(mempoolEntry.fees.base * 100000000);
     return transaction;
   }
 

@@ -47,6 +47,8 @@ class TransactionUtils {
   }
 
   private extendTransaction(transaction: IEsploraApi.Transaction): TransactionExtended {
+    // Dogecoin: Add TX weight by converting
+    transaction.weight = transaction.size * 4;
     // @ts-ignore
     if (transaction.vsize) {
       // @ts-ignore
@@ -66,6 +68,8 @@ class TransactionUtils {
   }
 
   public extendMempoolTransaction(transaction: IEsploraApi.Transaction): MempoolTransactionExtended {
+    // Dogecoin: Add TX weight by converting
+    transaction.weight = transaction.size * 4;
     const vsize = Math.ceil(transaction.weight / 4);
     const fractionalVsize = (transaction.weight / 4);
     const sigops = this.countSigops(transaction);
@@ -77,7 +81,7 @@ class TransactionUtils {
       (transaction.fee || 0) / adjustedVsize);
     const transactionExtended: MempoolTransactionExtended = Object.assign(transaction, {
       order: this.txidToOrdering(transaction.txid),
-      vsize: Math.round(transaction.weight / 4),
+      vsize: vsize,
       adjustedVsize,
       sigops,
       feePerVsize: feePerVbytes,

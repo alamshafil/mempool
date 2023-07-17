@@ -22,12 +22,14 @@ export namespace IBitcoinApi {
     ancestorcount: number;           //  (numeric) number of in-mempool ancestor transactions (including this one)
     ancestorsize: number;            //  (numeric) virtual transaction size of in-mempool ancestors (including this one)
     wtxid: string;                   //  (string) hash of serialized transactionumber; including witness data
-    fees: {
-      base: number;                  //  (numeric) transaction fee in BTC
-      modified: number;              //  (numeric) transaction fee with fee deltas used for mining priority in BTC
-      ancestor: number;              //  (numeric) modified fees (see above) of in-mempool ancestors (including this one) in BTC
-      descendant: number;            //  (numeric) modified fees (see above) of in-mempool descendants (including this one) in BTC
-    };
+    // Dogecoin: <= 1.14.6 does not support base fee in getmempoolentry
+    // fees: {
+    //   base: number;                  //  (numeric) transaction fee in BTC
+    //   modified: number;              //  (numeric) transaction fee with fee deltas used for mining priority in BTC
+    //   ancestor: number;              //  (numeric) modified fees (see above) of in-mempool ancestors (including this one) in BTC
+    //   descendant: number;            //  (numeric) modified fees (see above) of in-mempool descendants (including this one) in BTC
+    // };
+    fee: number                      //  (numeric) transaction fee in BTC
     depends: string[];               //  (string) parent transaction id
     spentby: string[];               //  (array) unconfirmed transactions spending outputs from this transaction
     'bip125-replaceable': boolean;   //  (boolean) Whether this transaction could be replaced due to BIP125 (replace-by-fee)
