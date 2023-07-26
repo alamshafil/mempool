@@ -28,9 +28,9 @@ latestrelease=$(curl -s https://api.github.com/repos/mempool/mempool/releases/la
 git checkout $latestrelease
 ```
 
-### 2. Configure Bitcoin Core
+### 2. Configure Dogecoin Core
 
-Turn on `txindex`, enable RPC, and set RPC credentials in `bitcoin.conf`:
+Turn on `txindex`, enable RPC, and set RPC credentials in `dogecoin.conf`:
 
 ```
 txindex=1
@@ -100,7 +100,7 @@ cp mempool-config.sample.json mempool-config.json
 Edit `mempool-config.json` as needed. 
 
 In particular, make sure:
-- the correct Bitcoin Core RPC credentials are specified in `CORE_RPC`
+- the correct Dogecoin Core RPC credentials are specified in `CORE_RPC`
 - the correct `BACKEND` is specified in `MEMPOOL`:
   - "electrum" if you're using [romanz/electrs](https://github.com/romanz/electrs) or [cculianu/Fulcrum](https://github.com/cculianu/Fulcrum)
   - "esplora" if you're using [Blockstream/electrs](https://github.com/Blockstream/electrs)
@@ -171,60 +171,60 @@ nodemon src/index.ts --ignore cache/
 
 Helpful link: https://gist.github.com/System-Glitch/cb4e87bf1ae3fec9925725bb3ebe223a
 
-Run bitcoind on regtest:
+Run dogecoind on regtest:
    ```
-   bitcoind -regtest
+   dogecoind -regtest
    ```
 
 Create a new wallet, if needed:
    ```
-   bitcoin-cli -regtest createwallet test
+   dogecoin-cli -regtest createwallet test
    ```
 
 Load wallet (this command may take a while if you have lot of UTXOs):
    ```
-   bitcoin-cli -regtest loadwallet test
+   dogecoin-cli -regtest loadwallet test
    ```
 
 Get a new address:
    ```
-   address=$(bitcoin-cli -regtest getnewaddress)
+   address=$(dogecoin-cli -regtest getnewaddress)
    ```
 
 Mine blocks to the previously generated address. You need at least 101 blocks before you can spend. This will take some time to execute (~1 min):
    ```
-   bitcoin-cli -regtest generatetoaddress 101 $address
+   dogecoin-cli -regtest generatetoaddress 101 $address
    ```
 
 Send 0.1 DOGE at 5 koinu/vB to another address:
    ```
-   bitcoin-cli -named -regtest sendtoaddress address=$(bitcoin-cli -regtest getnewaddress) amount=0.1 fee_rate=5
+   dogecoin-cli -named -regtest sendtoaddress address=$(dogecoin-cli -regtest getnewaddress) amount=0.1 fee_rate=5
    ```
 
 See more example of `sendtoaddress`:
    ```
-   bitcoin-cli sendtoaddress # will print the help
+   dogecoin-cli sendtoaddress # will print the help
    ```
 
 Mini script to generate random network activity (random TX count with random tx fee-rate). It's slow so don't expect to use this to test mempool spam, except if you let it run for a long time, or maybe with multiple regtest nodes connected to each other.
    ```
    #!/bin/bash
-   address=$(bitcoin-cli -regtest getnewaddress)
-   bitcoin-cli -regtest generatetoaddress 101 $address
+   address=$(dogecoin-cli -regtest getnewaddress)
+   dogecoin-cli -regtest generatetoaddress 101 $address
    for i in {1..1000000}
    do
       for y in $(seq 1 "$(jot -r 1 1 1000)")
       do
-         bitcoin-cli -regtest -named sendtoaddress address=$address amount=0.01 fee_rate=$(jot -r 1 1 100)
+         dogecoin-cli -regtest -named sendtoaddress address=$address amount=0.01 fee_rate=$(jot -r 1 1 100)
       done
-      bitcoin-cli -regtest generatetoaddress 1 $address
+      dogecoin-cli -regtest generatetoaddress 1 $address
       sleep 5
    done
    ```
 
 Generate block at regular interval (every 10 seconds in this example):
    ```
-   watch -n 10 "bitcoin-cli -regtest generatetoaddress 1 $address"
+   watch -n 10 "dogecoin-cli -regtest generatetoaddress 1 $address"
    ```
 
 ### Mining pools update

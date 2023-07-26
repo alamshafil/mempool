@@ -6,7 +6,7 @@ https://user-images.githubusercontent.com/93150691/226236121-375ea64f-b4a1-4cc0-
 
 Mempool is the fully-featured mempool visualizer, explorer, and API service running at [mempool.space](https://mempool.space/). 
 
-It is an open-source project developed and operated for the benefit of the Bitcoin community, with a focus on the emerging transaction fee market that is evolving Bitcoin into a multi-layer ecosystem.
+It is an open-source project developed and operated for the benefit of the Dogecoin community, with a focus on the emerging transaction fee market that is evolving Dogecoin into a multi-layer ecosystem.
 
 # Installation Methods
 
