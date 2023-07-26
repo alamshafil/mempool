@@ -49,7 +49,7 @@ interface BisqOutput {
   txId: string;
   index: number;
   bsqAmount: number;
-  btcAmount: number;
+  dogeAmount: number;
   height: number;
   isVerified: boolean;
   burntFee: number;

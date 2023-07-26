@@ -6,7 +6,7 @@ class CoinbaseApi implements PriceFeed {
   public currencies: string[] = ['USD', 'EUR', 'GBP'];
 
   public url: string = 'https://api.coinbase.com/v2/prices/spot?currency=';
-  public urlHist: string = 'https://api.exchange.coinbase.com/products/BTC-{CURRENCY}/candles?granularity={GRANULARITY}';
+  public urlHist: string = 'https://api.exchange.coinbase.com/products/DOGE-{CURRENCY}/candles?granularity={GRANULARITY}';
 
   constructor() {
   }

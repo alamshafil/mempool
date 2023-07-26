@@ -85,7 +85,7 @@ class ElementsParser {
       height, blockTime, amount, txid, txindex, bitcoinaddress, bitcointxid, bitcoinindex, final_tx
     ];
     await DB.query(query, params);
-    logger.debug(`Saved L-BTC peg from block height #${height} with TXID ${txid}.`);
+    logger.debug(`Saved L-DOGE peg from block height #${height} with TXID ${txid}.`);
   }
 
   protected async $getLatestBlockHeightFromDatabase(): Promise<number> {

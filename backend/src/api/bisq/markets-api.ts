@@ -94,13 +94,13 @@ class BisqMarketsApi {
       .filter((offer) => offer.currencyPair === currencyPair && offer.primaryMarketDirection === 'BUY')
       .map((offer) => offer.price)
       .sort((a, b) => b - a)
-      .map((price) => this.intToBtc(price));
+      .map((price) => this.intToDOGE(price));
 
     const sells = this.offersData
       .filter((offer) => offer.currencyPair === currencyPair && offer.primaryMarketDirection === 'SELL')
       .map((offer) => offer.price)
       .sort((a, b) => a - b)
-      .map((price) => this.intToBtc(price));
+      .map((price) => this.intToDOGE(price));
 
     const result = {};
     result[market] = {
@@ -147,15 +147,15 @@ class BisqMarketsApi {
     const markets = {};
 
     for (const currency of Object.keys(activeCurrencies)) {
-      if (allCurrencies[currency].code === 'BTC') {
+      if (allCurrencies[currency].code === 'DOGE') {
         continue;
       }
 
       const isFiat = allCurrencies[currency]._type === 'fiat';
-      const pmarketname = allCurrencies['BTC']['name'];
+      const pmarketname = allCurrencies['DOGE']['name'];
 
-      const lsymbol = isFiat ? 'BTC' : currency;
-      const rsymbol = isFiat ? currency : 'BTC';
+      const lsymbol = isFiat ? 'DOGE' : currency;
+      const rsymbol = isFiat ? currency : 'DOGE';
       const lname = isFiat ? pmarketname : allCurrencies[currency].name;
       const rname = isFiat ? allCurrencies[currency].name : pmarketname;
       const ltype = isFiat ? 'crypto' : allCurrencies[currency]._type;
@@ -280,7 +280,7 @@ class BisqMarketsApi {
         marketVolumes.push({
           period_start: timestamp === 'no' ? new Date(period['period_start'] * 1000).toISOString() : period['period_start'],
           num_trades: period['num_trades'],
-          volume: this.intToBtc(period['volume']),
+          volume: this.intToDOGE(period['volume']),
         });
       }
     }
@@ -324,11 +324,11 @@ class BisqMarketsApi {
 
     if (periods[0]) {
       ticker = {
-        'last': this.intToBtc(periods[0].close),
-        'high': this.intToBtc(periods[0].high),
-        'low': this.intToBtc(periods[0].low),
-        'volume_left': this.intToBtc(periods[0].volume_left),
-        'volume_right': this.intToBtc(periods[0].volume_right),
+        'last': this.intToDOGE(periods[0].close),
+        'high': this.intToDOGE(periods[0].high),
+        'low': this.intToDOGE(periods[0].low),
+        'volume_left': this.intToDOGE(periods[0].volume_left),
+        'volume_right': this.intToDOGE(periods[0].volume_right),
         'buy': null,
         'sell': null,
       };
@@ -339,7 +339,7 @@ class BisqMarketsApi {
       }
       const tradePrice = lastTrade[0].primaryMarketTradePrice * Math.pow(10, 8 - currencyRight.precision);
 
-      const lastTradePrice = this.intToBtc(tradePrice);
+      const lastTradePrice = this.intToDOGE(tradePrice);
       ticker = {
         'last': lastTradePrice,
         'high': lastTradePrice,
@@ -369,10 +369,10 @@ class BisqMarketsApi {
                                           );
 
     if (buy) {
-      ticker.buy = this.intToBtc(buy.primaryMarketPrice * Math.pow(10, 8 - currencyRight.precision));
+      ticker.buy = this.intToDOGE(buy.primaryMarketPrice * Math.pow(10, 8 - currencyRight.precision));
     }
     if (sell) {
-      ticker.sell = this.intToBtc(sell.primaryMarketPrice * Math.pow(10, 8 - currencyRight.precision));
+      ticker.sell = this.intToDOGE(sell.primaryMarketPrice * Math.pow(10, 8 - currencyRight.precision));
     }
 
     return ticker;
@@ -414,13 +414,13 @@ class BisqMarketsApi {
         const period = intervals[p];
         hloc.push({
           period_start: timestamp === 'no' ? new Date(period['period_start'] * 1000).toISOString() : period['period_start'],
-          open: this.intToBtc(period['open']),
-          close: this.intToBtc(period['close']),
-          high: this.intToBtc(period['high']),
-          low: this.intToBtc(period['low']),
-          avg: this.intToBtc(period['avg']),
-          volume_right: this.intToBtc(period['volume_right']),
-          volume_left: this.intToBtc(period['volume_left']),
+          open: this.intToDOGE(period['open']),
+          close: this.intToDOGE(period['close']),
+          high: this.intToDOGE(period['high']),
+          low: this.intToDOGE(period['low']),
+          avg: this.intToDOGE(period['avg']),
+          volume_right: this.intToDOGE(period['volume_right']),
+          volume_left: this.intToDOGE(period['volume_left']),
         });
       }
     }
@@ -582,7 +582,7 @@ class BisqMarketsApi {
         continue;
       }
 
-      // Filter out bogus trades with BTC/BTC or XXX/XXX market.
+      // Filter out bogus trades with DOGE/DOGE or XXX/XXX market.
       // See github issue: https://github.com/bitsquare/bitsquare/issues/883
       const currencyPairs = trade.currencyPair.split('/');
       if (currencyPairs[0] === currencyPairs[1]) {
@@ -606,10 +606,10 @@ class BisqMarketsApi {
         trade._tradeVolume = tradeVolume;
         trade._offerAmount = trade.offerAmount;
       } else {
-        trade._tradePriceStr = this.intToBtc(tradePrice);
-        trade._tradeAmountStr = this.intToBtc(tradeAmount);
-        trade._tradeVolumeStr = this.intToBtc(tradeVolume);
-        trade._offerAmountStr = this.intToBtc(trade.offerAmount);
+        trade._tradePriceStr = this.intToDOGE(tradePrice);
+        trade._tradeAmountStr = this.intToDOGE(tradeAmount);
+        trade._tradeVolumeStr = this.intToDOGE(tradeVolume);
+        trade._offerAmountStr = this.intToDOGE(trade.offerAmount);
       }
 
       matches.push(trade);
@@ -662,16 +662,16 @@ class BisqMarketsApi {
       offer_id: offer.id,
       offer_date: offer.date,
       direction: offer.primaryMarketDirection,
-      min_amount: this.intToBtc(offer.minAmount),
-      amount: this.intToBtc(amount),
-      price: this.intToBtc(price),
-      volume: this.intToBtc(volume),
+      min_amount: this.intToDOGE(offer.minAmount),
+      amount: this.intToDOGE(amount),
+      price: this.intToDOGE(price),
+      volume: this.intToDOGE(volume),
       payment_method: offer.paymentMethod,
       offer_fee_txid: null,
     };
   }
 
-  private intToBtc(val: number): string {
+  private intToDOGE(val: number): string {
     return (val / 100000000).toFixed(8);
   }
 }

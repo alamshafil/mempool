@@ -123,7 +123,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         map((featured) => {
           const newArray = [];
           for (const feature of featured) {
-            if (feature.ticker !== 'L-BTC' && feature.asset) {
+            if (feature.ticker !== 'L-DOGE' && feature.asset) {
               newArray.push(feature);
             }
           }

@@ -6,7 +6,7 @@ export namespace IBitcoinApi {
     usage: number;                   //  (numeric) Total memory usage for the mempool
     total_fee: number;               //  (numeric) Total fees of transactions in the mempool
     maxmempool: number;              //  (numeric) Maximum memory usage for the mempool
-    mempoolminfee: number;           //  (numeric) Minimum fee rate in BTC/kB for tx to be accepted.
+    mempoolminfee: number;           //  (numeric) Minimum fee rate in DOGE/kB for tx to be accepted.
     minrelaytxfee: number;           //  (numeric) Current minimum relay fee for transactions
   }
 
@@ -24,12 +24,12 @@ export namespace IBitcoinApi {
     wtxid: string;                   //  (string) hash of serialized transactionumber; including witness data
     // Dogecoin: <= 1.14.6 does not support base fee in getmempoolentry
     // fees: {
-    //   base: number;                  //  (numeric) transaction fee in BTC
-    //   modified: number;              //  (numeric) transaction fee with fee deltas used for mining priority in BTC
-    //   ancestor: number;              //  (numeric) modified fees (see above) of in-mempool ancestors (including this one) in BTC
-    //   descendant: number;            //  (numeric) modified fees (see above) of in-mempool descendants (including this one) in BTC
+    //   base: number;                  //  (numeric) transaction fee in DOGE
+    //   modified: number;              //  (numeric) transaction fee with fee deltas used for mining priority in DOGE
+    //   ancestor: number;              //  (numeric) modified fees (see above) of in-mempool ancestors (including this one) in DOGE
+    //   descendant: number;            //  (numeric) modified fees (see above) of in-mempool descendants (including this one) in DOGE
     // };
-    fee: number                      //  (numeric) transaction fee in BTC
+    fee: number                      //  (numeric) transaction fee in DOGE
     depends: string[];               //  (string) parent transaction id
     spentby: string[];               //  (array) unconfirmed transactions spending outputs from this transaction
     'bip125-replaceable': boolean;   //  (boolean) Whether this transaction could be replaced due to BIP125 (replace-by-fee)
@@ -80,7 +80,7 @@ export namespace IBitcoinApi {
   }
 
   export interface VerboseTransaction extends Transaction {
-    fee?: number;                   //  (numeric) The transaction fee in BTC, omitted if block undo data is not available
+    fee?: number;                   //  (numeric) The transaction fee in DOGE, omitted if block undo data is not available
   }
 
   export interface Vin {
@@ -97,7 +97,7 @@ export namespace IBitcoinApi {
   }
 
   export interface Vout {
-    value: number;                   //  (numeric) The value in BTC
+    value: number;                   //  (numeric) The value in DOGE
     n: number;                       //  (numeric) index
     asset?: string;                  //  (string) Elements asset id
     scriptPubKey: {                  //  (json object)

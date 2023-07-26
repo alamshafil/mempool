@@ -97,7 +97,7 @@ class BitcoinRoutes {
       .get(config.MEMPOOL.API_URL_PREFIX + 'block/:hash/summary', this.getStrippedBlockTransactions)
       .get(config.MEMPOOL.API_URL_PREFIX + 'block/:hash/audit-summary', this.getBlockAuditSummary)
       .get(config.MEMPOOL.API_URL_PREFIX + 'blocks/tip/height', this.getBlockTipHeight)
-      .post(config.MEMPOOL.API_URL_PREFIX + 'psbt/addparents', this.postPsbtCompletion)
+      .post(config.MEMPOOL.API_URL_PREFIX + 'psbt/addparents', this.postPsdOGEompletion)
       .get(config.MEMPOOL.API_URL_PREFIX + 'blocks-bulk/:from', this.getBlocksByBulk.bind(this))
       .get(config.MEMPOOL.API_URL_PREFIX + 'blocks-bulk/:from/:to', this.getBlocksByBulk.bind(this))
       ;
@@ -276,11 +276,11 @@ class BitcoinRoutes {
   /**
    * Takes the PSBT as text/plain body, parses it, and adds the full
    * parent transaction to each input that doesn't already have it.
-   * This is used for BTCPayServer / Trezor users which need access to
+   * This is used for DOGEPayServer / Trezor users which need access to
    * the full parent transaction even with segwit inputs.
    * It will respond with a text/plain PSBT in the same format (hex|base64).
    */
-  private async postPsbtCompletion(req: Request, res: Response): Promise<void> {
+  private async postPsdOGEompletion(req: Request, res: Response): Promise<void> {
     res.setHeader('content-type', 'text/plain');
     const notFoundError = `Couldn't get transaction hex for parent of input`;
     try {
