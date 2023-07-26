@@ -14,8 +14,8 @@ export class RateUnitSelectorComponent implements OnInit, OnDestroy {
   rateUnitForm: UntypedFormGroup;
   rateUnitSub: Subscription;
   units = [
-    { name: 'vb', label: 'sat/vB' },
-    { name: 'wu', label: 'sat/WU' },
+    { name: 'vb', label: 'koinu/vB' },
+    { name: 'wu', label: 'koinu/WU' },
   ];
 
   constructor(

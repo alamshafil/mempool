@@ -183,9 +183,9 @@ export class BlockFeeRatesGraphComponent implements OnInit {
 
           for (const rate of data.reverse()) {
             if (weightMode) {
-              tooltip += `${rate.marker} ${rate.seriesName}: ${rate.data[1] / 4} sats/WU<br>`;
+              tooltip += `${rate.marker} ${rate.seriesName}: ${rate.data[1] / 4} koinu/WU<br>`;
             } else {
-              tooltip += `${rate.marker} ${rate.seriesName}: ${rate.data[1]} sats/vByte<br>`;
+              tooltip += `${rate.marker} ${rate.seriesName}: ${rate.data[1]} koinu/vByte<br>`;
             }
           }
 

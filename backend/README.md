@@ -196,7 +196,7 @@ Mine blocks to the previously generated address. You need at least 101 blocks be
    bitcoin-cli -regtest generatetoaddress 101 $address
    ```
 
-Send 0.1 BTC at 5 sat/vB to another address:
+Send 0.1 BTC at 5 koinu/vB to another address:
    ```
    bitcoin-cli -named -regtest sendtoaddress address=$(bitcoin-cli -regtest getnewaddress) amount=0.1 fee_rate=5
    ```
