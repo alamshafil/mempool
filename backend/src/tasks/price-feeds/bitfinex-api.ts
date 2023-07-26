@@ -3,15 +3,15 @@ import priceUpdater, { PriceFeed, PriceHistory } from '../price-updater';
 
 class BitfinexApi implements PriceFeed {
   public name: string = 'Bitfinex';
-  public currencies: string[] = ['USD', 'EUR', 'GPB', 'JPY'];
+  public currencies: string[] = ['USD'];
 
   public url: string = 'https://api.bitfinex.com/v1/pubticker/DOGE';
   public urlHist: string = 'https://api-pub.bitfinex.com/v2/candles/trade:{GRANULARITY}:tDOGE{CURRENCY}/hist';
 
   public async $fetchPrice(currency): Promise<number> {
-    const response = await query(this.url + currency);
+    const response = await query(this.url + ":" + currency);
     if (response && response['last_price']) {
-      return parseInt(response['last_price'], 10);
+      return parseFloat(response['last_price']);
     } else {
       return -1;
     }
@@ -25,7 +25,7 @@ class BitfinexApi implements PriceFeed {
         continue;
       }
 
-      const response = await query(this.urlHist.replace('{GRANULARITY}', type === 'hour' ? '1h' : '1D').replace('{CURRENCY}', currency));
+      const response = await query(this.urlHist.replace('{GRANULARITY}', type === 'hour' ? '1h' : '1D').replace('{CURRENCY}', ":" + currency));
       const pricesRaw = response ? response : [];
 
       for (const price of pricesRaw as any[]) {

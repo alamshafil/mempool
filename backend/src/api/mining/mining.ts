@@ -500,8 +500,8 @@ class Mining {
       const blocksPrices: BlockPrice[] = [];
 
       for (const block of blocksWithoutPrices) {
-        // Quick optimisation, out mtgox feed only goes back to 2010-07-19 02:00:00, so skip the first 68951 blocks
-        if (['mainnet', 'testnet'].includes(config.MEMPOOL.NETWORK) && block.height < 68951) {
+        // Quick optimisation, out kraken feed only goes back to 2019-12-19 00:00:00, so skip the first 3028000 blocks
+        if (['mainnet', 'testnet'].includes(config.MEMPOOL.NETWORK) && block.height < 3028000) {
           blocksPrices.push({
             height: block.height,
             priceId: prices[0].id,

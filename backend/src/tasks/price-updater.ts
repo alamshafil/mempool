@@ -4,7 +4,6 @@ import config from '../config';
 import logger from '../logger';
 import PricesRepository, { ApiPrice, MAX_PRICES } from '../repositories/PricesRepository';
 import BitfinexApi from './price-feeds/bitfinex-api';
-import BitflyerApi from './price-feeds/bitflyer-api';
 import CoinbaseApi from './price-feeds/coinbase-api';
 import GeminiApi from './price-feeds/gemini-api';
 import KrakenApi from './price-feeds/kraken-api';
@@ -36,7 +35,6 @@ class PriceUpdater {
   constructor() {
     this.latestPrices = this.getEmptyPricesObj();
 
-    this.feeds.push(new BitflyerApi()); // Does not have historical endpoint
     this.feeds.push(new KrakenApi());
     this.feeds.push(new CoinbaseApi());
     this.feeds.push(new BitfinexApi());
@@ -142,7 +140,7 @@ class PriceUpdater {
       if (prices.length === 0) {
         this.latestPrices[currency] = -1;
       } else {
-        this.latestPrices[currency] = Math.round((prices.reduce((partialSum, a) => partialSum + a, 0)) / prices.length);
+        this.latestPrices[currency] = (prices.reduce((partialSum, a) => partialSum + a, 0)) / prices.length;
       }
     }
 
@@ -174,37 +172,10 @@ class PriceUpdater {
 
   /**
    * Called once by the database migration to initialize historical prices data (weekly)
-   * We use MtGox weekly price from July 19, 2010 to September 30, 2013
-   * We use Kraken weekly price from October 3, 2013 up to last month
+   * We use Kraken weekly price from December 19, 2019 up to last month
    * We use Kraken hourly price for the past month
    */
-  private async $insertHistoricalPrices(): Promise<void> {
-    const existingPriceTimes = await PricesRepository.$getPricesTimes();
-
-    // Insert MtGox weekly prices
-    const pricesJson: any[] = JSON.parse(fs.readFileSync(path.join(__dirname, 'mtgox-weekly.json')).toString());
-    const prices = this.getEmptyPricesObj();
-    let insertedCount: number = 0;
-    for (const price of pricesJson) {
-      if (existingPriceTimes.includes(price['ct'])) {
-        continue;
-      }
-
-      // From 1380758400 we will use Kraken price as it follows closely MtGox, but was not affected as much
-      // by the MtGox exchange collapse a few months later
-      if (price['ct'] > 1380758400) {
-        break;
-      }
-      prices.USD = price['c'];
-      await PricesRepository.$savePrices(price['ct'], prices);
-      ++insertedCount;
-    }
-    if (insertedCount > 0) {
-      logger.notice(`Inserted ${insertedCount} MtGox USD weekly price history into db`, logger.tags.mining);
-    } else {
-      logger.debug(`Inserted ${insertedCount} MtGox USD weekly price history into db`, logger.tags.mining);
-    }
-
+  private async $insertHistoricalPrices(): Promise<void> {    
     // Insert Kraken weekly prices
     await new KrakenApi().$insertHistoricalPrice();
 
@@ -230,7 +201,11 @@ class PriceUpdater {
     // Fetch all historical hourly prices
     for (const feed of this.feeds) {
       try {
-        historicalPrices.push(await feed.$fetchRecentPrice(this.currencies, type));
+        if (feed.name === 'Coinbase') {
+          historicalPrices.push(await feed.$fetchRecentPrice(['USD', 'EUR', 'GBP'], type));
+        } else {
+          historicalPrices.push(await feed.$fetchRecentPrice(this.currencies, type));
+        }
       } catch (e) {
         logger.err(`Cannot fetch hourly historical price from ${feed.name}. Ignoring this feed. Reason: ${e instanceof Error ? e.message : e}`, logger.tags.mining);
       }

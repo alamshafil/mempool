@@ -3,7 +3,7 @@ import priceUpdater, { PriceFeed, PriceHistory } from '../price-updater';
 
 class GeminiApi implements PriceFeed {
   public name: string = 'Gemini';
-  public currencies: string[] = ['USD', 'EUR', 'GBP', 'SGD'];
+  public currencies: string[] = ['USD'];
 
   public url: string = 'https://api.gemini.com/v1/pubticker/DOGE';
   public urlHist: string = 'https://api.gemini.com/v2/candles/DOGE{CURRENCY}/{GRANULARITY}';
@@ -14,7 +14,7 @@ class GeminiApi implements PriceFeed {
   public async $fetchPrice(currency): Promise<number> {
     const response = await query(this.url + currency);
     if (response && response['last']) {
-      return parseInt(response['last'], 10);
+      return parseFloat(response['last']);
     } else {
       return -1;
     }

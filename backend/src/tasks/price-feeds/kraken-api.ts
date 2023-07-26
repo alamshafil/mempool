@@ -5,18 +5,18 @@ import priceUpdater, { PriceFeed, PriceHistory } from '../price-updater';
 
 class KrakenApi implements PriceFeed {
   public name: string = 'Kraken';
-  public currencies: string[] = ['USD', 'EUR', 'GBP', 'CAD', 'CHF', 'AUD', 'JPY'];
+  public currencies: string[] = ['USD', 'EUR'];
 
-  public url: string = 'https://api.kraken.com/0/public/Ticker?pair=XBT';
-  public urlHist: string = 'https://api.kraken.com/0/public/OHLC?interval={GRANULARITY}&pair=XBT';
+  public url: string = 'https://api.kraken.com/0/public/Ticker?pair=DOGE';
+  public urlHist: string = 'https://api.kraken.com/0/public/OHLC?interval={GRANULARITY}&pair=DOGE';
 
   constructor() {
   }
 
   private getTicker(currency) {
-    let ticker = `XXBTZ${currency}`;
+    let ticker = `XDG${currency}`;
     if (['CHF', 'AUD'].includes(currency)) {
-      ticker = `XBT${currency}`;
+      ticker = `DOGE${currency}`;
     }
     return ticker;
   }
@@ -27,7 +27,7 @@ class KrakenApi implements PriceFeed {
     if (response && response['result'] && response['result'][ticker] &&
       response['result'][ticker]['c'] && response['result'][ticker]['c'].length > 0
     ) {
-      return parseInt(response['result'][ticker]['c'][0], 10);
+      return parseFloat(response['result'][ticker]['c'][0]);
     } else {
       return -1;
     }
@@ -61,13 +61,8 @@ class KrakenApi implements PriceFeed {
   public async $insertHistoricalPrice(): Promise<void> {
     const existingPriceTimes = await PricesRepository.$getPricesTimes();
 
-    // EUR weekly price history goes back to timestamp 1378339200 (September 5, 2013)
-    // USD weekly price history goes back to timestamp 1380758400 (October 3, 2013)
-    // GBP weekly price history goes back to timestamp 1415232000 (November 6, 2014)
-    // JPY weekly price history goes back to timestamp 1415232000 (November 6, 2014)
-    // CAD weekly price history goes back to timestamp 1436400000 (July 9, 2015)
-    // CHF weekly price history goes back to timestamp 1575504000 (December 5, 2019)
-    // AUD weekly price history goes back to timestamp 1591833600 (June 11, 2020)
+    // EUR weekly price history goes back to timestamp 1576713600 (December 19, 2019)
+    // USD weekly price history goes back to timestamp 1576713600 (December 19, 2019)
 
     let priceHistory: any = {}; // map: timestamp -> Prices
 
@@ -98,7 +93,7 @@ class KrakenApi implements PriceFeed {
     }
 
     if (Object.keys(priceHistory).length > 0) {
-      logger.info(`Inserted ${Object.keys(priceHistory).length} Kraken EUR, USD, GBP, JPY, CAD, CHF and AUD weekly price history into db`, logger.tags.mining);
+      logger.info(`Inserted ${Object.keys(priceHistory).length} Kraken EUR and USD weekly price history into db`, logger.tags.mining);
     }
   }
 }
