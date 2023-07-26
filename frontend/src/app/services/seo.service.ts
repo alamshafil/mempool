@@ -7,7 +7,7 @@ import { StateService } from './state.service';
 })
 export class SeoService {
   network = '';
-  baseTitle = 'mempool';
+  baseTitle = 'dogepool';
 
   constructor(
     private titleService: Title,
@@ -38,16 +38,16 @@ export class SeoService {
 
   getTitle(): string {
     if (this.network === 'testnet')
-      return this.baseTitle + ' - Bitcoin Testnet';
+      return this.baseTitle + ' - Dogecoin Testnet';
     if (this.network === 'signet')
-      return this.baseTitle + ' - Bitcoin Signet';
+      return this.baseTitle + ' - Dogecoin Signet';
     if (this.network === 'liquid')
       return this.baseTitle + ' - Liquid Network';
     if (this.network === 'liquidtestnet')
       return this.baseTitle + ' - Liquid Testnet';
     if (this.network === 'bisq')
       return this.baseTitle + ' - Bisq Markets';
-    return this.baseTitle + ' - ' + (this.network ? this.ucfirst(this.network) : 'Bitcoin') + ' Explorer';
+    return this.baseTitle + ' - ' + (this.network ? this.ucfirst(this.network) : 'Dogecoin') + ' Explorer';
   }
 
   ucfirst(str: string) {

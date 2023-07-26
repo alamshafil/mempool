@@ -2,7 +2,7 @@
 
 This directory contains the Dockerfiles used to build and release the official images, as well as a `docker-compose.yml` to configure environment variables and other settings.
 
-If you are looking to use these Docker images to deploy your own instance of Mempool, note that they only containerize Mempool's frontend and backend. You will still need to deploy and configure Bitcoin Core and an Electrum Server separately, along with any other utilities specific to your use case (e.g., a reverse proxy, etc). Such configuration is mostly beyond the scope of the Mempool project, so please only proceed if you know what you're doing.
+If you are looking to use these Docker images to deploy your own instance of Dogepool, note that they only containerize Dogepool's frontend and backend. You will still need to deploy and configure Bitcoin Core and an Electrum Server separately, along with any other utilities specific to your use case (e.g., a reverse proxy, etc). Such configuration is mostly beyond the scope of the Dogepool project, so please only proceed if you know what you're doing.
 
 See a video guide of this installation method by k3tan [on BitcoinTV.com](https://bitcointv.com/w/8fpAx6rf5CQ16mMhospwjg).
 
@@ -20,8 +20,8 @@ The default Docker configuration assumes you have the following configuration in
 ```ini
 txindex=1
 server=1
-rpcuser=mempool
-rpcpassword=mempool
+rpcuser=dogepool
+rpcpassword=dogepool
 ```
 
 If you want to use different credentials, specify them in the `docker-compose.yml` file:
@@ -29,7 +29,7 @@ If you want to use different credentials, specify them in the `docker-compose.ym
 ```yaml
   api:
     environment:
-      MEMPOOL_BACKEND: "none"
+      DOGEPOOL_BACKEND: "none"
       CORE_RPC_HOST: "172.27.0.1"
       CORE_RPC_PORT: "8332"
       CORE_RPC_USERNAME: "customuser"
@@ -47,31 +47,31 @@ Now, run:
 docker-compose up
 ```
 
-Your Mempool instance should be running at http://localhost. The graphs will be populated as new transactions are detected.
+Your Dogepool instance should be running at http://localhost. The graphs will be populated as new transactions are detected.
 
 ## Configure with Bitcoin Core + Electrum Server
 
-First, configure `bitcoind` as specified above, and make sure your Electrum Server is running and synced. See [this FAQ](https://mempool.space/docs/faq#address-lookup-issues) if you need help picking an Electrum Server implementation.
+First, configure `bitcoind` as specified above, and make sure your Electrum Server is running and synced. See [this FAQ](https://dogepool.space/docs/faq#address-lookup-issues) if you need help picking an Electrum Server implementation.
 
-Then, set the following variables in `docker-compose.yml` so Mempool can connect to your Electrum Server:
+Then, set the following variables in `docker-compose.yml` so Dogepool can connect to your Electrum Server:
 
 ```yaml
   api:
     environment:
-      MEMPOOL_BACKEND: "electrum"
+      DOGEPOOL_BACKEND: "electrum"
       ELECTRUM_HOST: "172.27.0.1"
       ELECTRUM_PORT: "50002"
       ELECTRUM_TLS_ENABLED: "false"
 ```
 
-Eligible values for `MEMPOOL_BACKEND`:
+Eligible values for `DOGEPOOL_BACKEND`:
   - "electrum" if you're using [romanz/electrs](https://github.com/romanz/electrs) or [cculianu/Fulcrum](https://github.com/cculianu/Fulcrum)
   - "esplora" if you're using [Blockstream/electrs](https://github.com/Blockstream/electrs)
   - "none" if you're not using any Electrum Server
 
 Of course, if your Docker host IP address is different, update accordingly.
 
-With `bitcoind` and Electrum Server set up, run Mempool with:
+With `bitcoind` and Electrum Server set up, run Dogepool with:
 
 ```bash
 docker-compose up
@@ -79,15 +79,15 @@ docker-compose up
 
 ## Further Configuration
 
-Optionally, you can override any other backend settings from `mempool-config.json`.
+Optionally, you can override any other backend settings from `dogepool-config.json`.
 
-Below we list all settings from `mempool-config.json` and the corresponding overrides you can make in the `api` > `environment` section of `docker-compose.yml`. 
+Below we list all settings from `dogepool-config.json` and the corresponding overrides you can make in the `api` > `environment` section of `docker-compose.yml`. 
 
 <br/>
 
-`mempool-config.json`:
+`dogepool-config.json`:
 ```json
-  "MEMPOOL": {
+  "DOGEPOOL": {
     "NETWORK": "mainnet",
     "BACKEND": "electrum",
     "ENABLED": true,
@@ -100,7 +100,7 @@ Below we list all settings from `mempool-config.json` and the corresponding over
     "RECOMMENDED_FEE_PERCENTILE": 50,
     "BLOCK_WEIGHT_UNITS": 4000000,
     "INITIAL_BLOCKS_AMOUNT": 8,
-    "MEMPOOL_BLOCKS_AMOUNT": 8,
+    "DOGEPOOL_BLOCKS_AMOUNT": 8,
     "BLOCKS_SUMMARIES_INDEXING": false,
     "USE_SECOND_NODE_FOR_MINFEE": false,
     "EXTERNAL_ASSETS": [],
@@ -110,7 +110,7 @@ Below we list all settings from `mempool-config.json` and the corresponding over
     "POOLS_JSON_URL": "https://raw.githubusercontent.com/litecoin-foundation/mining-pools-ltc/master/pools.json",
     "POOLS_JSON_TREE_URL": "https://api.github.com/repos/litecoin-foundation/mining-pools-ltc/git/trees/master",
     "ADVANCED_GBT_AUDIT": false,
-    "ADVANCED_GBT_MEMPOOL": false,
+    "ADVANCED_GBT_DOGEPOOL": false,
     "CPFP_INDEXING": false,
     "MAX_BLOCKS_BULK_QUERY": 0,
     "DISK_CACHE_BLOCK_INTERVAL": 6
@@ -121,47 +121,47 @@ Corresponding `docker-compose.yml` overrides:
 ```yaml
   api:
     environment:
-      MEMPOOL_NETWORK: ""
-      MEMPOOL_BACKEND: ""
-      MEMPOOL_HTTP_PORT: ""
-      MEMPOOL_SPAWN_CLUSTER_PROCS: ""
-      MEMPOOL_API_URL_PREFIX: ""
-      MEMPOOL_POLL_RATE_MS: ""
-      MEMPOOL_CACHE_DIR: ""
-      MEMPOOL_CLEAR_PROTECTION_MINUTES: ""
-      MEMPOOL_RECOMMENDED_FEE_PERCENTILE: ""
-      MEMPOOL_BLOCK_WEIGHT_UNITS: ""
-      MEMPOOL_INITIAL_BLOCKS_AMOUNT: ""
-      MEMPOOL_MEMPOOL_BLOCKS_AMOUNT: ""
-      MEMPOOL_BLOCKS_SUMMARIES_INDEXING: ""
-      MEMPOOL_USE_SECOND_NODE_FOR_MINFEE: ""
-      MEMPOOL_EXTERNAL_ASSETS: ""
-      MEMPOOL_STDOUT_LOG_MIN_PRIORITY: ""
-      MEMPOOL_INDEXING_BLOCKS_AMOUNT: ""
-      MEMPOOL_AUTOMATIC_BLOCK_REINDEXING: ""
-      MEMPOOL_POOLS_JSON_URL: ""
-      MEMPOOL_POOLS_JSON_TREE_URL: ""
-      MEMPOOL_ADVANCED_GBT_AUDIT: ""
-      MEMPOOL_ADVANCED_GBT_MEMPOOL: ""
-      MEMPOOL_CPFP_INDEXING: ""
-      MEMPOOL_MAX_BLOCKS_BULK_QUERY: ""
-      MEMPOOL_DISK_CACHE_BLOCK_INTERVAL: ""
+      DOGEPOOL_NETWORK: ""
+      DOGEPOOL_BACKEND: ""
+      DOGEPOOL_HTTP_PORT: ""
+      DOGEPOOL_SPAWN_CLUSTER_PROCS: ""
+      DOGEPOOL_API_URL_PREFIX: ""
+      DOGEPOOL_POLL_RATE_MS: ""
+      DOGEPOOL_CACHE_DIR: ""
+      DOGEPOOL_CLEAR_PROTECTION_MINUTES: ""
+      DOGEPOOL_RECOMMENDED_FEE_PERCENTILE: ""
+      DOGEPOOL_BLOCK_WEIGHT_UNITS: ""
+      DOGEPOOL_INITIAL_BLOCKS_AMOUNT: ""
+      DOGEPOOL_DOGEPOOL_BLOCKS_AMOUNT: ""
+      DOGEPOOL_BLOCKS_SUMMARIES_INDEXING: ""
+      DOGEPOOL_USE_SECOND_NODE_FOR_MINFEE: ""
+      DOGEPOOL_EXTERNAL_ASSETS: ""
+      DOGEPOOL_STDOUT_LOG_MIN_PRIORITY: ""
+      DOGEPOOL_INDEXING_BLOCKS_AMOUNT: ""
+      DOGEPOOL_AUTOMATIC_BLOCK_REINDEXING: ""
+      DOGEPOOL_POOLS_JSON_URL: ""
+      DOGEPOOL_POOLS_JSON_TREE_URL: ""
+      DOGEPOOL_ADVANCED_GBT_AUDIT: ""
+      DOGEPOOL_ADVANCED_GBT_DOGEPOOL: ""
+      DOGEPOOL_CPFP_INDEXING: ""
+      DOGEPOOL_MAX_BLOCKS_BULK_QUERY: ""
+      DOGEPOOL_DISK_CACHE_BLOCK_INTERVAL: ""
       ...
 ```
 
-`ADVANCED_GBT_AUDIT` AND `ADVANCED_GBT_MEMPOOL` enable a more accurate (but slower) block prediction algorithm for the block audit feature and the projected mempool-blocks respectively.
+`ADVANCED_GBT_AUDIT` AND `ADVANCED_GBT_DOGEPOOL` enable a more accurate (but slower) block prediction algorithm for the block audit feature and the projected dogepool-blocks respectively.
 
 `CPFP_INDEXING` enables indexing CPFP (Child Pays For Parent) information for the last `INDEXING_BLOCKS_AMOUNT` blocks.
 
 <br/>
 
-`mempool-config.json`:
+`dogepool-config.json`:
 ```json
   "CORE_RPC": {
     "HOST": "127.0.0.1",
     "PORT": 8332,
-    "USERNAME": "mempool",
-    "PASSWORD": "mempool",
+    "USERNAME": "dogepool",
+    "PASSWORD": "dogepool",
     "TIMEOUT": 60000
   },
 ```
@@ -180,7 +180,7 @@ Corresponding `docker-compose.yml` overrides:
 
 <br/>
 
-`mempool-config.json`:
+`dogepool-config.json`:
 ```json
   "ELECTRUM": {
     "HOST": "127.0.0.1",
@@ -201,7 +201,7 @@ Corresponding `docker-compose.yml` overrides:
 
 <br/>
 
-`mempool-config.json`:
+`dogepool-config.json`:
 ```json
   "ESPLORA": {
     "REST_API_URL": "http://127.0.0.1:3000",
@@ -222,13 +222,13 @@ Corresponding `docker-compose.yml` overrides:
 
 <br/>
 
-`mempool-config.json`:
+`dogepool-config.json`:
 ```json
   "SECOND_CORE_RPC": {
     "HOST": "127.0.0.1",
     "PORT": 8332,
-    "USERNAME": "mempool",
-    "PASSWORD": "mempool",
+    "USERNAME": "dogepool",
+    "PASSWORD": "dogepool",
     "TIMEOUT": 60000
   },
 ```
@@ -247,15 +247,15 @@ Corresponding `docker-compose.yml` overrides:
 
 <br/>
 
-`mempool-config.json`:
+`dogepool-config.json`:
 ```json
   "DATABASE": {
     "ENABLED": true,
     "HOST": "127.0.0.1",
     "PORT": 3306,
-    "DATABASE": "mempool",
-    "USERNAME": "mempool",
-    "PASSWORD": "mempool"
+    "DATABASE": "dogepool",
+    "USERNAME": "dogepool",
+    "PASSWORD": "dogepool"
   },
 ```
 
@@ -275,7 +275,7 @@ Corresponding `docker-compose.yml` overrides:
 
 <br/>
 
-`mempool-config.json`:
+`dogepool-config.json`:
 ```json
   "SYSLOG": {
     "ENABLED": true,
@@ -300,7 +300,7 @@ Corresponding `docker-compose.yml` overrides:
 
 <br/>
 
-`mempool-config.json`:
+`dogepool-config.json`:
 ```json
   "STATISTICS": {
     "ENABLED": true,
@@ -319,7 +319,7 @@ Corresponding `docker-compose.yml` overrides:
 
 <br/>
 
-`mempool-config.json`:
+`dogepool-config.json`:
 ```json
   "BISQ": {
     "ENABLED": false,
@@ -338,7 +338,7 @@ Corresponding `docker-compose.yml` overrides:
 
 <br/>
 
-`mempool-config.json`:
+`dogepool-config.json`:
 ```json
   "SOCKS5PROXY": {
     "ENABLED": false,
@@ -363,7 +363,7 @@ Corresponding `docker-compose.yml` overrides:
 
 <br/>
 
-`mempool-config.json`:
+`dogepool-config.json`:
 ```json
   "PRICE_DATA_SERVER": {
     "TOR_URL": "http://wizpriceje6q5tdrxkyiazsgu7irquiqjy2dptezqhrtu7l2qelqktid.onion/getAllMarketPrices",
@@ -382,7 +382,7 @@ Corresponding `docker-compose.yml` overrides:
 
 <br/>
 
-`mempool-config.json`:
+`dogepool-config.json`:
 ```json
   "LIGHTNING": {
     "ENABLED": false
@@ -409,7 +409,7 @@ Corresponding `docker-compose.yml` overrides:
 
 <br/>
 
-`mempool-config.json`:
+`dogepool-config.json`:
 ```json
   "LND": {
     "TLS_CERT_PATH": ""
@@ -432,7 +432,7 @@ Corresponding `docker-compose.yml` overrides:
 
 <br/>
 
-`mempool-config.json`:
+`dogepool-config.json`:
 ```json
   "CLIGHTNING": {
     "SOCKET": ""
@@ -449,7 +449,7 @@ Corresponding `docker-compose.yml` overrides:
 
 <br/>
 
-`mempool-config.json`:
+`dogepool-config.json`:
 ```json
   "MAXMIND": {
     "ENABLED": true,

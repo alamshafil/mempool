@@ -1,6 +1,6 @@
-# Mempool Frontend
+# Dogepool Frontend
 
-You can build and run the Mempool frontend and proxy to the production Mempool backend (for easier frontend development), or you can connect it to your own backend for a full Mempool development instance, custom deployment, etc.
+You can build and run the Dogepool frontend and proxy to the production Dogepool backend (for easier frontend development), or you can connect it to your own backend for a full Dogepool development instance, custom deployment, etc.
 
 Jump to a section in this doc:
 - [Quick Setup for Frontend Development](#quick-setup-for-frontend-development)
@@ -9,25 +9,25 @@ Jump to a section in this doc:
 
 ## Quick Setup for Frontend Development
 
-If you want to quickly improve the UI, fix typos, or make other updates that don't require any backend changes, you don't need to set up an entire backend—you can simply run the Mempool frontend locally and proxy to the mempool.space backend.
+If you want to quickly improve the UI, fix typos, or make other updates that don't require any backend changes, you don't need to set up an entire backend—you can simply run the Dogepool frontend locally and proxy to the dogepool.space backend.
 
-### 1. Clone Mempool Repository
+### 1. Clone Dogepool Repository
 
-Get the latest Mempool code:
+Get the latest Dogepool code:
 
 ```
-git clone https://github.com/mempool/mempool
-cd mempool/frontend
+git clone https://github.com/dogepool/dogepool
+cd dogepool/frontend
 ```
 
 ### 2. Specify Website
 
-The same frontend codebase is used for https://mempool.space, https://liquid.network and https://bisq.markets.
+The same frontend codebase is used for https://dogepool.space, https://liquid.network and https://bisq.markets.
 
 Configure the frontend for the site you want by running the corresponding command:
 
 ```
-$ npm run config:defaults:mempool
+$ npm run config:defaults:dogepool
 $ npm run config:defaults:liquid
 $ npm run config:defaults:bisq
 ```
@@ -43,7 +43,7 @@ $ npm install
 $ npm run serve:local-prod
 ```
 
-The frontend will be available at http://localhost:4200/ and all API requests will be proxied to the production server at https://mempool.space.
+The frontend will be available at http://localhost:4200/ and all API requests will be proxied to the production server at https://dogepool.space.
 
 ### 4. Test
 
@@ -52,13 +52,13 @@ After making your changes, you can run our end-to-end automation suite and check
 Headless:
 
 ```
-$ npm run config:defaults:mempool && npm run cypress:run
+$ npm run config:defaults:dogepool && npm run cypress:run
 ```
 
 Interactive:
 
 ```
-$ npm run config:defaults:mempool && npm run cypress:open
+$ npm run config:defaults:dogepool && npm run cypress:open
 ```
 
 This will open the Cypress test runner, where you can select any of the test files to run.
@@ -67,7 +67,7 @@ If all tests are green, submit your PR, and it will be reviewed by someone on th
 
 ## Manual Setup
 
-Set up the [Mempool backend](../backend/) first, if you haven't already.
+Set up the [Dogepool backend](../backend/) first, if you haven't already.
 
 ### 1. Build the Frontend
 
@@ -85,7 +85,7 @@ npm run build
 
 #### Development
 
-To run your local Mempool frontend with your local Mempool backend:
+To run your local Dogepool frontend with your local Dogepool backend:
 
 ```
 npm run serve
@@ -99,8 +99,8 @@ You will probably want to set up a reverse proxy, TLS, etc. There are sample ngi
 
 ## Translations: Transifex Project
 
-The Mempool frontend strings are localized into 20+ locales:
-https://www.transifex.com/mempool/mempool/dashboard/
+The Dogepool frontend strings are localized into 20+ locales:
+https://www.transifex.com/dogepool/dogepool/dashboard/
 
 ### Translators
 
