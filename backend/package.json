@@ -1,5 +1,5 @@
 {
-  "name": "mempool-backend",
+  "name": "dogepool-backend",
   "version": "3.0.0-dev",
   "description": "Dogecoin mempool visualizer and blockchain explorer backend",
   "license": "GNU Affero General Public License v3.0",
@@ -15,9 +15,7 @@
     "dogecoin",
     "mempool",
     "blockchain",
-    "explorer",
-    "liquid",
-    "lightning"
+    "explorer"
   ],
   "main": "index.ts",
   "scripts": {

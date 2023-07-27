@@ -42,8 +42,8 @@ export class GroupPreviewComponent implements OnInit {
           if (this.slug === 'the-mempool-open-source-project') {
             this.groupId = 'mempool.space';
             this.group = {
-              name: 'The Mempool Open Source Project',
-              description: 'These are the Lightning nodes operated by The Mempool Open Source Project that provide data for the mempool.space website. Connect to us!',
+              name: 'The Dogepool Open Source Project',
+              description: 'These are the Lightning nodes operated by The Dogepool Open Source Project that provide data for the mempool.space website. Connect to us!',
             };
           } else {
             this.group = {

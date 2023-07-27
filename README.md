@@ -1,6 +1,6 @@
 # The Dogepool Open Source Project
 
-Dogepool is the fully-featured dogepool visualizer, explorer, and API service running at [dogepool.space](https://dogepool.space/). 
+Dogepool is the fully-featured mempool visualizer, explorer, and API service running at [dogepool.space](https://dogepool.space/). 
 
 It is an open-source project developed and operated for the benefit of the Dogecoin community, with a focus on the emerging transaction fee market that is evolving Dogecoin into a multi-layer ecosystem.
 
@@ -10,7 +10,9 @@ Dogepool can be self-hosted on a wide variety of your own hardware, ranging from
 
 **Most people should use a one-click install method.** Other install methods are meant for developers and others with experience managing servers. 
 
-<a id="one-click-installation"></a>
+This is currently being worked on...
+
+<!-- <a id="one-click-installation"></a>
 ## One-Click Installation
 
 Dogepool can be conveniently installed on the following full-node distros: 
@@ -20,7 +22,7 @@ Dogepool can be conveniently installed on the following full-node distros:
 - [myNode](https://github.com/mynodebtc/mynode)
 - [Start9](https://github.com/Start9Labs/embassy-os)
 
-**We highly recommend you deploy your own Dogepool instance this way.** No matter which option you pick, you'll be able to get your own fully-sovereign instance of Dogepool up quickly without needing to fiddle with any settings.
+**We highly recommend you deploy your own Dogepool instance this way.** No matter which option you pick, you'll be able to get your own fully-sovereign instance of Dogepool up quickly without needing to fiddle with any settings. -->
 
 ## Advanced Installation Methods
 

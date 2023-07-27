@@ -27,7 +27,7 @@ The same frontend codebase is used for https://dogepool.space, https://liquid.ne
 Configure the frontend for the site you want by running the corresponding command:
 
 ```
-$ npm run config:defaults:dogepool
+$ npm run config:defaults:mempool
 $ npm run config:defaults:liquid
 $ npm run config:defaults:bisq
 ```
@@ -100,7 +100,7 @@ You will probably want to set up a reverse proxy, TLS, etc. There are sample ngi
 ## Translations: Transifex Project
 
 The Dogepool frontend strings are localized into 20+ locales:
-https://www.transifex.com/dogepool/dogepool/dashboard/
+https://www.transifex.com/mempool/mempool/dashboard/
 
 ### Translators
 

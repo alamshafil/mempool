@@ -99,118 +99,6 @@ function downloadMiningPoolLogos$() {
   });
 }
 
-function downloadPromoVideoSubtiles$() {
-  return new Promise((resolve, reject) => {
-    console.log('Checking if promo video subtitles needs downloading or updating...');
-    const options = {
-      host: 'api.github.com',
-      path: '/repos/mempool/mempool-promo/contents/subtitles',
-      method: 'GET',
-      headers: {'user-agent': 'node.js'}
-    };
-
-    https.get(options, (response) => {
-      const chunks_of_data = [];
-
-      response.on('data', (fragments) => {
-        chunks_of_data.push(fragments);
-      });
-
-      response.on('end', () => {
-        const response_body = Buffer.concat(chunks_of_data);
-        try {
-          const videoLanguages = JSON.parse(response_body.toString());
-          if (videoLanguages.message) {
-            reject(videoLanguages.message);
-          }
-          let downloadedCount = 0;
-          for (const language of videoLanguages) {
-            const filePath = `${PATH}/promo-video/${language.name}`;
-            if (fs.existsSync(filePath)) {
-              const localHash = getLocalHash(filePath);
-              if (localHash !== language.sha) {
-                console.log(`${language.name} is different on the remote, updating`);
-                download(filePath, language.download_url);
-                downloadedCount++;
-              }
-            } else {
-              console.log(`${language.name} is missing, downloading`);
-              download(filePath, language.download_url);
-              downloadedCount++;
-            }
-          }
-          console.log(`Downloaded ${downloadedCount} and skipped ${videoLanguages.length - downloadedCount} existing video subtitles`);
-          resolve();
-        } catch (e) {
-          reject(`Unable to download video subtitles. Trying again at next restart. Reason: ${e instanceof Error ? e.message : e}`);
-        }
-      });
-
-      response.on('error', (error) => {
-        reject(error);
-      });
-    });
-  });
-}
-
-function downloadPromoVideo$() {
-  return new Promise((resolve, reject) => {
-    console.log('Checking if promo video needs downloading or updating...');
-    const options = {
-      host: 'api.github.com',
-      path: '/repos/mempool/mempool-promo/contents',
-      method: 'GET',
-      headers: {'user-agent': 'node.js'}
-    };
-
-    https.get(options, (response) => {
-      const chunks_of_data = [];
-
-      response.on('data', (fragments) => {
-        chunks_of_data.push(fragments);
-      });
-
-      response.on('end', () => {
-        const response_body = Buffer.concat(chunks_of_data);
-        try {
-          const contents = JSON.parse(response_body.toString());
-          if (contents.message) {
-            reject(contents.message);
-          }
-          for (const item of contents) {
-            if (item.name !== 'promo.mp4') {
-              continue;
-            }
-            const filePath = `${PATH}/promo-video/mempool-promo.mp4`;
-            if (fs.existsSync(filePath)) {
-              const localHash = getLocalHash(filePath);
-              if (localHash !== item.sha) {
-                console.log(`mempool-promo.mp4 is different on the remote, updating`);
-                download(filePath, item.download_url);
-                console.log('mempool-promo.mp4 downloaded.');
-              } else {
-                console.log(`mempool-promo.mp4 is already up to date. Skipping.`);
-              }
-            } else {
-              console.log(`mempool-promo.mp4 is missing, downloading`);
-              download(filePath, item.download_url);
-            }
-          }
-          resolve();
-        } catch (e) {
-          reject(`Unable to download video. Trying again at next restart. Reason: ${e instanceof Error ? e.message : e}`);
-        }
-      });
-
-      response.on('error', (error) => {
-        reject(error);
-      });
-    });
-  });
-
-}
-
-
 
 let assetsJsonUrl = 'https://raw.githubusercontent.com/mempool/asset_registry_db/master/index.json';
 let assetsMinimalJsonUrl = 'https://raw.githubusercontent.com/mempool/asset_registry_db/master/index.minimal.json';
@@ -233,8 +121,6 @@ console.log('Downloading testnet assets minimal');
 download(PATH + 'assets-testnet.minimal.json', testnetAssetsMinimalJsonUrl);
 
 downloadMiningPoolLogos$()
-  .then(() => downloadPromoVideoSubtiles$())
-  .then(() => downloadPromoVideo$())
   .catch((error) => {
     throw new Error(error);
   });

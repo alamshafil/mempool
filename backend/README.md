@@ -94,10 +94,10 @@ npm run build
 In the backend folder, make a copy of the sample config file:
 
 ```
-cp dogepool-config.sample.json dogepool-config.json
+cp mempool-config.sample.json mempool-config.json
 ```
 
-Edit `dogepool-config.json` as needed. 
+Edit `mempool-config.json` as needed. 
 
 In particular, make sure:
 - the correct Dogecoin Core RPC credentials are specified in `CORE_RPC`
@@ -114,20 +114,20 @@ Run the Dogepool backend:
 npm run start
 
 ```
-You can also set env var `DOGEPOOL_CONFIG_FILE` to specify a custom config file location:
+You can also set env var `MEMPOOL_CONFIG_FILE` to specify a custom config file location:
 ```
-DOGEPOOL_CONFIG_FILE=/path/to/dogepool-config.json npm run start
+MEMPOOL_CONFIG_FILE=/path/to/mempool-config.json npm run start
 ```
 
 When it's running, you should see output like this:
 
 ```
 Dogepool updated in 0.189 seconds
-Updating dogepool
+Updating mempool
 Dogepool updated in 0.096 seconds
-Updating dogepool
+Updating mempool
 Dogepool updated in 0.099 seconds
-Updating dogepool
+Updating mempool
 Calculated fee for transaction 1 / 10
 Calculated fee for transaction 2 / 10
 Calculated fee for transaction 3 / 10
@@ -139,7 +139,7 @@ Calculated fee for transaction 8 / 10
 Calculated fee for transaction 9 / 10
 Calculated fee for transaction 10 / 10
 Dogepool updated in 0.243 seconds
-Updating dogepool
+Updating mempool
 ```
 
 ### 7. Set Up Dogepool Frontend
@@ -229,11 +229,11 @@ Generate block at regular interval (every 10 seconds in this example):
 
 ### Mining pools update
 
-By default, mining pools will be not automatically updated regularly (`config.DOGEPOOL.AUTOMATIC_BLOCK_REINDEXING` is set to `false`). 
+By default, mining pools will be not automatically updated regularly (`config.MEMPOOL.AUTOMATIC_BLOCK_REINDEXING` is set to `false`). 
 
 To manually update your mining pools, you can use the `--update-pools` command line flag when you run the nodejs backend. For example `npm run start --update-pools`. This will trigger the mining pools update and automatically re-index appropriate blocks.
 
-You can enabled the automatic mining pools update by settings `config.DOGEPOOL.AUTOMATIC_BLOCK_REINDEXING` to `true` in your `dogepool-config.json`.
+You can enabled the automatic mining pools update by settings `config.MEMPOOL.AUTOMATIC_BLOCK_REINDEXING` to `true` in your `mempool-config.json`.
 
 When a `coinbase tag` or `coinbase address` change is detected, all blocks tagged to the `unknown` mining pools (starting from height 130635) will be deleted from the `blocks` table. Additionaly, all blocks which were tagged to the pool which has been updated will also be deleted from the `blocks` table. Of course, those blocks will be automatically reindexed.
 
@@ -253,4 +253,4 @@ Feb 13 14:55:27 [63246] WARN: <lightning> Indexed data for "hashrates" tables wi
 Feb 13 14:55:32 [63246] NOTICE: <lightning> Table hashrates has been truncated
 ```
 
-Reference: https://github.com/dogepool/dogepool/pull/1269
+Reference: https://github.com/mempool/mempool/pull/1269
