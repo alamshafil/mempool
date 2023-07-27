@@ -82,7 +82,7 @@ export class TxBowtieGraphComponent implements OnInit, OnChanges {
   refreshOutspends$: ReplaySubject<string> = new ReplaySubject();
 
   gradientColors = {
-    '': ['#9339f4', '#105fb0', '#9339f400'],
+    '': ['#af830b', '#e4ab10', '#af830b00'],
     bisq: ['#9339f4', '#105fb0', '#9339f400'],
     // liquid: ['#116761', '#183550'],
     liquid: ['#09a197', '#0f62af', '#09a19700'],
@@ -94,7 +94,7 @@ export class TxBowtieGraphComponent implements OnInit, OnChanges {
     signet: ['#d24fc8', '#a84fd2', '#d24fc800'],
   };
 
-  gradient: string[] = ['#105fb0', '#105fb0'];
+  gradient: string[] = ['#af830b', '#e4ab10'];
 
   constructor(
     private router: Router,

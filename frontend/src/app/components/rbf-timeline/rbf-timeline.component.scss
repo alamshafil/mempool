@@ -81,7 +81,7 @@
       right: -5px;
       top: 0;
       transform: translateY(-50%);
-      background: #105fb0;
+      background: #2368d9;
       border-radius: 5px;
 
       &.left {
@@ -187,14 +187,14 @@
         width: 20px;
         height: 108px;
         bottom: 50%;
-        border-right: solid 10px #105fb0;
+        border-right: solid 10px #2368d9;
         &.fullrbf {
           border-right: solid 10px #1bd8f4;
         }
       }
 
       .corner {
-        border-bottom: solid 10px #105fb0;
+        border-bottom: solid 10px #2368d9;
         border-bottom-right-radius: 10px;
         &.fullrbf {
           border-bottom: solid 10px #1bd8f4;

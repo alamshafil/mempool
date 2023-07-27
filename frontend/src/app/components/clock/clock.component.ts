@@ -32,7 +32,7 @@ export class ClockComponent implements OnInit {
   limitHeight: number;
 
   gradientColors = {
-    '': ['#9339f4', '#105fb0'],
+    '': ['#a57900', '#a57900'],
     bisq: ['#9339f4', '#105fb0'],
     liquid: ['#116761', '#183550'],
     'liquidtestnet': ['#494a4a', '#272e46'],
@@ -100,8 +100,8 @@ export class ClockComponent implements OnInit {
 
     return {
       background: `repeating-linear-gradient(
-        #2d3348,
-        #2d3348 ${greenBackgroundHeight}%,
+        #a57900,
+        #a57900 ${greenBackgroundHeight}%,
         ${this.gradientColors[''][0]} ${Math.max(greenBackgroundHeight, 0)}%,
         ${this.gradientColors[''][1]} 100%
       )`,

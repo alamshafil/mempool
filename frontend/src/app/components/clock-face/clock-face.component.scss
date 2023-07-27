@@ -14,7 +14,7 @@
     height: 100%;
 
     .face {
-      fill: #11131f;
+      fill: #171717;
     }
   }
 
@@ -23,14 +23,14 @@
     stroke-linejoin: round;
 
     &.minute {
-      fill:#80C2E1;
-      stroke:#80C2E1;
+      fill:#e4ab10;
+      stroke:#e4ab10;
       stroke-width: 2px;
     }
 
     &.hour {
-      fill: #105fb0;
-      stroke: #105fb0;
+      fill: #a57900;
+      stroke: #a57900;
       stroke-width: 6px;
     }
   }

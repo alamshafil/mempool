@@ -34,7 +34,7 @@ export class LightweightChartsComponent implements OnInit, OnChanges, OnDestroy 
       width: this.element.nativeElement.parentElement.offsetWidth,
       height: this.height,
       layout: {
-        backgroundColor: '#000000',
+        backgroundColor: '#171717',
         textColor: '#d1d4dc',
       },
       crosshair: {

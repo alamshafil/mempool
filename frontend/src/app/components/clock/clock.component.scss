@@ -126,7 +126,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background: radial-gradient(transparent 0%, transparent 44%, #11131f 58%, #11131f 100%);
+    background: radial-gradient(transparent 0%, transparent 44%, #131313 58%, #131313 100%);
   }
 
   .block-cube {
@@ -148,7 +148,7 @@
       height: var(--side-width);
       line-height: 100px;
       text-align: center;
-      background: #232838;
+      background: #161616;
       display: block;
       position: absolute;
     }
@@ -159,7 +159,7 @@
     }
 
     .side.bottom {
-      background: #105fb0;
+      background: #2b2b2b;
       transform: rotateX(-90deg); 
       margin-top: var(--half-side);
     }

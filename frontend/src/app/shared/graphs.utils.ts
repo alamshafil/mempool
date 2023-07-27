@@ -102,7 +102,7 @@ export function detectWebGL(): boolean {
  * @param {Number} amount
  * @example
  * // returns #7F7F7F
- * lerpColor('#000000', '#ffffff', 0.5)
+ * lerpColor('#171717', '#ffffff', 0.5)
  * @returns {String}
  */
 export function lerpColor(a: string, b: string, amount: number): string {
