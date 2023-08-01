@@ -29,8 +29,8 @@
       <h5 class="card-title" i18n="mining.average-fee" i18n-ngbTooltip="mining.average-fee"
       ngbTooltip="Avg Tx Fee" placement="bottom" #averagefee [disableTooltip]="!isEllipsisActive(averagefee)">Avg Tx Fee</h5>
       <div class="card-text" i18n-ngbTooltip="mining.average-fee" ngbTooltip="Fee paid on average for each transaction in the past 144 blocks" placement="bottom">
-        <div class="fee-text">{{ rewardStats.feePerTx | amountShortener: 2 }}
-          <span i18n="shared.sat-vbyte|koinu/vB">koinu/tx</span>
+        <div class="fee-text">{{ rewardStats.feePerTx / 100000000 | amountShortener: 2 }}
+          <span i18n="shared.sat-vbyte|DOGE/kb">DOGE/tx</span>
         </div>
         <span class="fiat">
           <app-fiat [value]="rewardStats.feePerTx"></app-fiat>

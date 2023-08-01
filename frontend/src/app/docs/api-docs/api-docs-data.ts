@@ -8773,7 +8773,7 @@ export const faqData = [
     category: "basics",
     showConditions: bitcoinNetworks,
     fragment: "what-is-svb",
-    title: "What is koinu/vB?",
+    title: "What is DOGE/kb?",
   },
   {
     type: "category",

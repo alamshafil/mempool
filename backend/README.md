@@ -196,7 +196,7 @@ Mine blocks to the previously generated address. You need at least 101 blocks be
    dogecoin-cli -regtest generatetoaddress 101 $address
    ```
 
-Send 0.1 DOGE at 5 koinu/vB to another address:
+Send 0.1 DOGE at 5 DOGE/kb to another address:
    ```
    dogecoin-cli -named -regtest sendtoaddress address=$(dogecoin-cli -regtest getnewaddress) amount=0.1 fee_rate=5
    ```

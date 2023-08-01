@@ -1,4 +1,4 @@
 <ng-container *ngIf="rateUnits$ | async as units">
-  <ng-container *ngIf="units !== 'wu'">{{ fee / (weight / 4) | feeRounding:rounding }} <span *ngIf="showUnit" [class]="unitClass" [style]="unitStyle">koinu/vB</span></ng-container>
-  <ng-container *ngIf="units === 'wu'">{{ fee / weight | feeRounding:rounding }} <span *ngIf="showUnit" [class]="unitClass" [style]="unitStyle">koinu/WU</span></ng-container>
+  <ng-container *ngIf="units !== 'wu'">{{ ((fee * 1000) / 100000000) / (weight / 4) | feeRounding:rounding }} <span *ngIf="showUnit" [class]="unitClass" [style]="unitStyle">DOGE/kb</span></ng-container>
+  <ng-container *ngIf="units === 'wu'">{{ ((fee * 1000) / 100000000) / weight | feeRounding:rounding }} <span *ngIf="showUnit" [class]="unitClass" [style]="unitStyle">DOGE/kWU</span></ng-container>
 </ng-container>

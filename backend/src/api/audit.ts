@@ -125,7 +125,7 @@ class Audit {
             maxOverflowRate = tx.effectiveFeePerVsize;
             rateThreshold = (Math.ceil(maxOverflowRate * 100) / 100) + 0.005;
           }
-        } else if (tx.effectiveFeePerVsize <= rateThreshold) { // tolerance of 0.01 koinu/vb + rounding
+        } else if (tx.effectiveFeePerVsize <= rateThreshold) { // tolerance of 0.01 DOGE/kb + rounding
           if (isCensored[txid]) {
             delete isCensored[txid];
           }
