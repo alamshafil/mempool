@@ -32,7 +32,7 @@ interface DiffShape {
   expected: boolean;
 }
 
-const EPOCH_BLOCK_LENGTH = 2016; // Bitcoin mainnet
+const EPOCH_BLOCK_LENGTH = 1; // Dogecoin mainnet
 
 @Component({
   selector: 'app-difficulty',
@@ -93,8 +93,8 @@ export class DifficultyComponent implements OnInit {
           colorPreviousAdjustments = '#ffffff66';
         }
 
-        const blocksUntilHalving = 210000 - (maxHeight % 210000);
-        const timeUntilHalving = new Date().getTime() + (blocksUntilHalving * 600000);
+        const blocksUntilHalving = 0;
+        const timeUntilHalving = 0;
         const newEpochStart = Math.floor(this.stateService.latestBlockHeight / EPOCH_BLOCK_LENGTH) * EPOCH_BLOCK_LENGTH;
         const newExpectedHeight = Math.floor(newEpochStart + da.expectedBlocks);
 
@@ -103,7 +103,7 @@ export class DifficultyComponent implements OnInit {
           this.expectedHeight = newExpectedHeight;
           this.currentHeight = this.stateService.latestBlockHeight;
           this.currentIndex = this.currentHeight - this.epochStart;
-          this.expectedIndex = Math.min(this.expectedHeight - this.epochStart, 2016) - 1;
+          this.expectedIndex = Math.min(this.expectedHeight - this.epochStart, 1) - 1;
           this.difference = this.currentIndex - this.expectedIndex;
 
           this.shapes = [];
@@ -116,7 +116,7 @@ export class DifficultyComponent implements OnInit {
           this.shapes = this.shapes.concat(this.blocksToShapes(
             this.expectedIndex + 1, this.currentIndex, 'ahead', false
           ));
-          if (this.currentIndex < 2015) {
+          if (this.currentIndex < 0) {
             this.shapes = this.shapes.concat(this.blocksToShapes(
               this.currentIndex + 1, this.currentIndex + 1, 'next', (this.expectedIndex > this.currentIndex)
             ));

@@ -147,89 +147,9 @@ export const languages: Language[] = [
 export const specialBlocks = {
   '0': {
     labelEvent: 'Genesis',
-    labelEventCompleted: 'The Genesis of Bitcoin',
+    labelEventCompleted: 'The Genesis of Dogecoin',
     networks: ['mainnet', 'testnet'],
   },
-  '210000': {
-    labelEvent: 'Bitcoin\'s 1st Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 25 DOGE per block',
-    networks: ['mainnet', 'testnet'],
-  },
-  '420000': {
-    labelEvent: 'Bitcoin\'s 2nd Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 12.5 DOGE per block',
-    networks: ['mainnet', 'testnet'],
-  },
-  '630000': {
-    labelEvent: 'Bitcoin\'s 3rd Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 6.25 DOGE per block',
-    networks: ['mainnet', 'testnet'],
-  },
-  '709632': {
-    labelEvent: 'Taproot 🌱 activation',
-    labelEventCompleted: 'Taproot 🌱 has been activated!',
-    networks: ['mainnet'],
-  },
-  '840000': {
-    labelEvent: 'Bitcoin\'s 4th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 3.125 DOGE per block',
-    networks: ['mainnet', 'testnet'],
-  },
-  '1050000': {
-    labelEvent: 'Bitcoin\'s 5th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 1.5625 DOGE per block',
-    networks: ['mainnet', 'testnet'],
-  },
-  '1260000': {
-    labelEvent: 'Bitcoin\'s 6th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.78125 DOGE per block',
-    networks: ['mainnet', 'testnet'],
-  },
-  '1470000': {
-    labelEvent: 'Bitcoin\'s 7th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.390625 DOGE per block',
-    networks: ['mainnet', 'testnet'],
-  },
-  '1680000': {
-    labelEvent: 'Bitcoin\'s 8th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.1953125 DOGE per block',
-    networks: ['mainnet', 'testnet'],
-  },
-  '1890000': {
-    labelEvent: 'Bitcoin\'s 9th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.09765625 DOGE per block',
-    networks: ['mainnet', 'testnet'],
-  },
-  '2100000': {
-    labelEvent: 'Bitcoin\'s 10th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.04882812 DOGE per block',
-    networks: ['mainnet', 'testnet'],
-  },
-  '2310000': {
-    labelEvent: 'Bitcoin\'s 11th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.02441406 DOGE per block',
-    networks: ['mainnet', 'testnet'],
-  },
-  '2520000': {
-    labelEvent: 'Bitcoin\'s 12th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.01220703 DOGE per block',
-    networks: ['mainnet', 'testnet'],
-  },
-  '2730000': {
-    labelEvent: 'Bitcoin\'s 13th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.00610351 DOGE per block',
-    networks: ['mainnet', 'testnet'],
-  },
-  '2940000': {
-    labelEvent: 'Bitcoin\'s 14th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.00305175 DOGE per block',
-    networks: ['mainnet', 'testnet'],
-  },
-  '3150000': {
-    labelEvent: 'Bitcoin\'s 15th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.00152587 DOGE per block',
-    networks: ['mainnet', 'testnet'],
-  }
 };
 
 export const fiatCurrencies = {
