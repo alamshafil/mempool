@@ -146,7 +146,7 @@ export class FeeDistributionGraphComponent implements OnInit, OnChanges, OnDestr
           color: '#ffffff',
           textShadowBlur: 0,
           formatter: (label: { data: number[] }): string => {
-            const value = label.data[1];
+            const value = (label.data[1] * 1000) / 100000000;
             const unitValue = this.weightMode ? value / 4 : value;
             const selectedPowerOfTen = selectPowerOfTen(unitValue);
             const newVal = Math.round(unitValue / selectedPowerOfTen.divider);

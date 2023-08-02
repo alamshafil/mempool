@@ -193,9 +193,13 @@ export default class TxView implements TransactionStripped {
     return performance.now() + hoverTransitionTime;
   }
 
+  convertKoinuVBtoDogeKB(fee: number): number {
+    return  (fee * 1000) / 100000000;
+  }
+
   getColor(): Color {
-    const rate = this.fee / this.vsize; // color by simple single-tx fee rate
-    const feeLevelIndex = feeLevels.findIndex((feeLvl) => Math.max(1, rate) < feeLvl) - 1;
+    const rate = this.convertKoinuVBtoDogeKB(this.fee / this.vsize); // unit: DOGE/kb; color by simple single-tx fee rate
+    const feeLevelIndex = feeLevels.findIndex((feeLvl) => Math.max(0.01, rate) < feeLvl) - 1;
     const feeLevelColor = feeColors[feeLevelIndex] || feeColors[mempoolFeeColors.length - 1];
     // Normal mode
     if (!this.scene?.highlightingEnabled) {

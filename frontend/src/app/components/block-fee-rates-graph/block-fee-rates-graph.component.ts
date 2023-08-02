@@ -151,6 +151,10 @@ export class BlockFeeRatesGraphComponent implements OnInit {
       );
   }
 
+  convertKoinuVBtoDogeKB(fee: number): number {
+    return  (fee * 1000) / 100000000;
+  }
+
   prepareChartOptions(data, weightMode) {
     this.chartOptions = {
       color: ['#D81B60', '#8E24AA', '#1E88E5', '#7CB342', '#FDD835', '#6D4C41', '#546E7A'],
@@ -183,9 +187,9 @@ export class BlockFeeRatesGraphComponent implements OnInit {
 
           for (const rate of data.reverse()) {
             if (weightMode) {
-              tooltip += `${rate.marker} ${rate.seriesName}: ${rate.data[1] / 4} DOGE/kWU<br>`;
+              tooltip += `${rate.marker} ${rate.seriesName}: ${this.convertKoinuVBtoDogeKB(rate.data[1]) / 4} DOGE/kWU<br>`;
             } else {
-              tooltip += `${rate.marker} ${rate.seriesName}: ${rate.data[1]} DOGE/kbyte<br>`;
+              tooltip += `${rate.marker} ${rate.seriesName}: ${this.convertKoinuVBtoDogeKB(rate.data[1])} DOGE/kbyte<br>`;
             }
           }
 
@@ -236,12 +240,13 @@ export class BlockFeeRatesGraphComponent implements OnInit {
         axisLabel: {
           color: 'rgb(110, 112, 121)',
           formatter: (val) => {
+            val = this.convertKoinuVBtoDogeKB(val);
             if (weightMode) {
               val /= 4;
             }
             const selectedPowerOfTen: any = selectPowerOfTen(val);
             const newVal = Math.round(val / selectedPowerOfTen.divider);
-            return `${newVal}${selectedPowerOfTen.unit} s/${weightMode ? 'WU': 'vB'}`;
+            return `${newVal}${selectedPowerOfTen.unit} D/${weightMode ? 'kWU': 'kb'}`;
           },
         },
         splitLine: {

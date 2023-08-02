@@ -5,7 +5,8 @@
       ngbTooltip="Miners Reward" placement="bottom" #minersreward [disableTooltip]="!isEllipsisActive(minersreward)">Miners Reward</h5>
       <div class="card-text" i18n-ngbTooltip="mining.rewards-desc" ngbTooltip="Amount being paid to miners in the past 144 blocks" placement="bottom">
         <div class="fee-text">
-          <app-amount [satoshis]="rewardStats.totalReward" digitsInfo="1.2-2" [noFiat]="true"></app-amount>
+          <!-- <app-amount [satoshis]="rewardStats.totalReward" digitsInfo="1.2-2" [noFiat]="true"></app-amount> -->
+          {{ (rewardStats.totalReward / 100000000) | amountShortener: 2 }}
         </div>
         <span class="fiat">
           <app-fiat [value]="rewardStats.totalReward" digitsInfo="1.0-0" ></app-fiat>
@@ -17,7 +18,7 @@
       ngbTooltip="Avg Block Fees" placement="bottom" #rewardsperblock [disableTooltip]="!isEllipsisActive(rewardsperblock)">Avg Block Fees</h5>
       <div class="card-text" i18n-ngbTooltip="mining.fees-per-block-desc" ngbTooltip="Average fees per block in the past 144 blocks" placement="bottom">
         <div class="fee-text">
-          {{ (rewardStats.feePerBlock / 100000000) | amountShortener: 4 }}
+          {{ (rewardStats.feePerBlock / 100000000) | amountShortener: 2 }}
           <span i18n="shared.doge-block|DOGE/block">DOGE/block</span>
         </div>
         <span class="fiat">
