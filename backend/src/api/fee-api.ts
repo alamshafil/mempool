@@ -6,12 +6,12 @@ import projectedBlocks from './mempool-blocks';
 class FeeApi {
   constructor() { }
 
-  defaultFee = Common.isLiquid() ? 0.1 : 1;
-
+  defaultFee = Common.isLiquid() ? 0.1 : 1000; // 1000 koinu/vb (0.01 DOGE/kb)
+  
   public getRecommendedFee() {
     const pBlocks = projectedBlocks.getMempoolBlocks();
     const mPool = mempool.getMempoolInfo();
-    const minimumFee = Math.ceil(mPool.mempoolminfee * 100000);
+    const minimumFee = mPool.mempoolminfee * 100000;
 
     if (!pBlocks.length) {
       return {
@@ -43,9 +43,9 @@ class FeeApi {
     }
     if (pBlock.blockVSize <= 950000 && !nextBlock) {
       const multiplier = (pBlock.blockVSize - 500000) / 500000;
-      return Math.max(Math.round(useFee * multiplier), this.defaultFee);
+      return Math.max(useFee * multiplier, this.defaultFee);
     }
-    return Math.ceil(useFee);
+    return useFee;
   }
 }
 
