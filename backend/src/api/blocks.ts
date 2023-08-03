@@ -184,6 +184,9 @@ class Blocks {
    */
   private async $getBlockExtended(block: IEsploraApi.Block, transactions: TransactionExtended[]): Promise<BlockExtended> {
     const coinbaseTx = transactionUtils.stripCoinbaseTransaction(transactions[0]);
+
+    // @ts-ignore - Use Dogecoin AuxPow TX for finding the miner
+    const coinbaseAuxPowTx = transactionUtils.stripCoinbaseTransaction(block.auxpow.tx);
     
     const blk: Partial<BlockExtended> = Object.assign({}, block);
     const extras: Partial<BlockExtension> = {};
@@ -264,8 +267,8 @@ class Blocks {
 
     if (['mainnet', 'testnet', 'signet'].includes(config.MEMPOOL.NETWORK)) {
       let pool: PoolTag;
-      if (coinbaseTx !== undefined) {
-        pool = await this.$findBlockMiner(coinbaseTx);
+      if (coinbaseAuxPowTx !== undefined) {
+        pool = await this.$findBlockMiner(coinbaseAuxPowTx);
       } else {
         if (config.DATABASE.ENABLED === true) {
           pool = await poolsRepository.$getUnknownPool();

@@ -33,6 +33,8 @@ class BitcoinApi implements AbstractBitcoinApi {
       previousblockhash: block.previousblockhash,
       mediantime: block.mediantime,
       stale: block.confirmations === -1,
+      // @ts-ignore - Dogecoin AuxPow
+      auxpow: block.auxpow,
     };
   }
 
